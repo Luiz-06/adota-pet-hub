@@ -22,9 +22,15 @@ const PetCard = ({ pet, onClick }: PetCardProps) => {
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
         />
         <div className="absolute top-3 right-3">
-          <Badge className="bg-secondary text-secondary-foreground shadow-md">
-            Disponível
-          </Badge>
+          {pet.available ? (
+            <Badge className="bg-secondary text-secondary-foreground shadow-md">
+              Disponível
+            </Badge>
+          ) : (
+            <Badge variant="secondary" className="bg-muted text-muted-foreground shadow-md">
+              Adotado
+            </Badge>
+          )}
         </div>
         <div className="absolute top-3 left-3">
           <Badge variant="outline" className="bg-card/90 backdrop-blur-sm">

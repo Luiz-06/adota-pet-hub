@@ -120,18 +120,31 @@ const PetModal = ({ pet, open, onOpenChange }: PetModalProps) => {
           </div>
 
           {/* CTA Button */}
-          <Button
-            onClick={handleWhatsAppClick}
-            className="w-full bg-gradient-to-r from-primary to-primary-light hover:opacity-90 transition-opacity text-lg py-6"
-            size="lg"
-          >
-            <MessageCircle className="w-5 h-5 mr-2" />
-            Quero Adotar {pet.name}!
-          </Button>
+          {pet.available ? (
+            <>
+              <Button
+                onClick={handleWhatsAppClick}
+                className="w-full bg-gradient-to-r from-primary to-primary-light hover:opacity-90 transition-opacity text-lg py-6"
+                size="lg"
+              >
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Quero Adotar {pet.name}!
+              </Button>
 
-          <p className="text-xs text-center text-muted-foreground">
-            Você será redirecionado para o WhatsApp para iniciar o processo de adoção
-          </p>
+              <p className="text-xs text-center text-muted-foreground">
+                Você será redirecionado para o WhatsApp para iniciar o processo de adoção
+              </p>
+            </>
+          ) : (
+            <div className="text-center py-4 px-6 bg-muted rounded-lg">
+              <p className="text-lg font-semibold text-muted-foreground">
+                {pet.name} já foi adotado! 🎉
+              </p>
+              <p className="text-sm text-muted-foreground mt-2">
+                Mas temos outros amiguinhos esperando por você!
+              </p>
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>
