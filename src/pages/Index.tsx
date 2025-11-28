@@ -1,11 +1,12 @@
 import { useState } from "react";
 import PetCard from "@/components/PetCard";
 import PetModal from "@/components/PetModal";
-import { mockPets } from "@/data/mockPets";
+import { usePets } from "@/contexts/PetsContext";
 import { Pet } from "@/types/pet";
 import { Heart } from "lucide-react";
 
 const Index = () => {
+  const { pets } = usePets();
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -35,15 +36,23 @@ const Index = () => {
       {/* Pets Grid */}
       <section className="pb-24 md:pb-32 px-4">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {mockPets.map((pet) => (
-              <PetCard 
-                key={pet.id} 
-                pet={pet} 
-                onClick={() => handlePetClick(pet)} 
-              />
-            ))}
-          </div>
+          {pets.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-lg text-muted-foreground">
+                Nenhum animal disponível no momento. Volte em breve!
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {pets.map((pet) => (
+                <PetCard 
+                  key={pet.id} 
+                  pet={pet} 
+                  onClick={() => handlePetClick(pet)} 
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
